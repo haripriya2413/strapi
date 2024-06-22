@@ -16,18 +16,18 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.ASHOK_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.ASHOK_AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.HARIPRIYA_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.HARIPRIYA_AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1  # Replace with your AWS region
 
       - name: Prepare SSH key
         run: |
-          echo "${{ secrets.ASHOK_EC2_KEY }}" > key.pem
+          echo "${{ secrets.HARIPRIYA_EC2_KEY }}" > key.pem
           chmod 600 key.pem
 
       - name: Deploy Strapi Application
         run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.ASHOK_EC2_HOST }} "
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.HARIPRIYA_EC2_HOST }} "
             sudo mkdir -p /srv/strapi && sudo chown ubuntu:ubuntu /srv/strapi
             cd /srv/strapi
             if [ -d '.git' ]; then
