@@ -27,7 +27,7 @@ jobs:
         key: ${{ secrets.HARIPRIYA_EC2_KEY }}
         script: |
           cd /srv/strapi
-          sudo git pull origin main
+          #sudo git pull origin main
           sudo npm install         
           # Check if Strapi is already managed by pm2
           if ! sudo pm2 status | grep -q "strapi-app"; then
