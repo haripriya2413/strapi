@@ -36,7 +36,6 @@ jobs:
              npm run build
               pm2 restart strapi || pm2 start npm --name 'strapi' -- run start
            
-        
 
       - name: Clean up
         run: rm key.pem
