@@ -1,40 +1,39 @@
-name: Deploy Strapi
+name: Deploy Strapi Application
+
 on:
   push:
     branches:
-      - main # Trigger this workflow on push to the main branch
+      - main 
+  pull_request:
+    branches:
+      - main  
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.HARIPRIYA_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.HARIPRIYA_AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1  # Replace with your AWS region
+    - name: Install SSH client
+      run: sudo apt-get install openssh-client
 
-      - name: Prepare SSH key
-        run: |
-          echo "${{ secrets.HARIPRIYA_EC2_KEY }}" > key.pem
-          chmod 600 key.pem
-
-      - name: Deploy Strapi Application
-        run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.HARIPRIYA_EC2_HOST }} "
-            sudo mkdir -p /srv/strapi && sudo chown ubuntu:ubuntu /srv/strapi
-            
-            cd /srv/strapi
-            git clone https://github.com/haripriya2413/deploy-strapi.git
-            cd deploy-strapi
-             npm install
-             npm run build
-              pm2 restart strapi || pm2 start npm --name 'strapi' -- run start
-           
-
-      - name: Clean up
-        run: rm key.pem
+    - name: SSH into EC2 instance and deploy Strapi
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.RAVI_EC2_PUBLIC_IP }}
+        username: ubuntu
+        key: ${{ secrets.RAVI_PRIVATE_SSH_KEY }}
+        script: |
+          cd /srv/strapi
+          sudo git pull origin main
+          sudo npm install         
+          # Check if Strapi is already managed by pm2
+          if ! sudo pm2 status | grep -q "strapi-app"; then
+            echo "Strapi is not managed by pm2. Starting Strapi with pm2..."
+            sudo pm2 start "npm run start --silent" --name "strapi-app"
+          else
+            echo "Strapi is already managed by pm2. Restarting Strapi..."
+            sudo pm2 restart strapi-app
+          fi
