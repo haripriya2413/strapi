@@ -30,12 +30,8 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.HARIPRIYA_EC2_HOST }} "
             sudo mkdir -p /srv/strapi && sudo chown ubuntu:ubuntu /srv/strapi
             cd /srv/strapi
-            if [ -d '.git' ]; then
-              git pull origin master
-            else
-              git clone https://github.com/veera1016/strapi.git /srv/strapi
-            fi
-            ls -la /srv/strapi
+            git clone https://github.com/haripriya2413/deploy-strapi.git
+           
             if [ -f /srv/strapi/package.json ]; then
               npm install
               npm run build
