@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master  # Trigger this workflow on push to the main branch
-  
 jobs:
   deploy:
     runs-on: ubuntu-latest
