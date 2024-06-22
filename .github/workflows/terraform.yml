@@ -21,8 +21,8 @@ jobs:
       - name: Create SSH Key File
         run: |
           mkdir -p /home/runner/.ssh
-          echo "${{ secrets.ASHOK_EC2_KEY }}" > /home/runner/.ssh/Veera.pem
-          chmod 600 /home/runner/.ssh/Veera.pem
+          echo "${{ secrets.HARIPRIYA_EC2_KEY }}" > /home/runner/.ssh/devops.pem
+          chmod 600 /home/runner/.ssh/devops.pem
           ls -al /home/runner/.ssh  # Verify permissions and existence
           
       - name: Configure AWS Credentials
@@ -37,5 +37,5 @@ jobs:
         working-directory: ./terraform  # Update this path if necessary
 
       - name: Apply Terraform
-        run: terraform apply -auto-approve -var="private_key_path=/home/runner/.ssh/Veera.pem"
+        run: terraform apply -auto-approve -var="private_key_path=/home/runner/.ssh/devops.pem"
         working-directory: ./terraform  # Update this path if necessary
