@@ -30,7 +30,6 @@ jobs:
           aws-access-key-id: ${{ secrets.HARIPRIYA_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.HARIPRIYA_AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-          
       - name: Initialize Terraform
         run: terraform init
         working-directory: ./terraform  # Update this path if necessary
