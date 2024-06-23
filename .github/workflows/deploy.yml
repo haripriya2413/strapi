@@ -35,7 +35,7 @@ jobs:
           key: ${{ secrets.HARIPRIYA_EC2_KEY }}
           script: |
             set -e
-            yes | npx create-strapi-app@latest my-strapi-project --quickstart --skip-cloud --no-run
-            cd ~/my-strapi-project
+            yes | npx create-strapi-app@latest priya-strapi-project --quickstart --skip-cloud --no-run
+            cd ~/priya-strapi-project
             pm2 start npm --name strapi-app -- run develop
             pm2 save
