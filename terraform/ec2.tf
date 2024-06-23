@@ -7,7 +7,7 @@ resource "random_id" "this" {
 }
 
 resource "aws_security_group" "strapi_sg" {
-  name        = "strapi-security-group"
+  name = "StrapiInstance-${random_id.this.hex}"
   description = "Security group for Strapi EC2 instance"
 
   ingress {
@@ -38,9 +38,7 @@ resource "aws_security_group" "strapi_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-tags = {
-    Name = "StrapiInstance-${random_id.this.hex}"
-  }
+
 
 }
 
