@@ -3,7 +3,7 @@ name: CI/CD for Strapi
 on:
   push:
     branches:
-      - main  # Adjust branch name if necessary
+      - master # Adjust branch name if necessary
 
 jobs:
   build-and-deploy:
