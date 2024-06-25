@@ -38,5 +38,5 @@ jobs:
             set -e
             yes | npx create-strapi-app@latest priya-strapi-project --quickstart --skip-cloud --no-run
             cd ~/priya-strapi-project
-            pm2 start npm --name strapi-app -- run develop
+            pm2 start npm --name strapi-app -- start
             pm2 save
