@@ -2,7 +2,7 @@ name: Terraform Apply
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   terraform:
     runs-on: ubuntu-latest
