@@ -7,7 +7,7 @@ resource "random_id" "this" {
 }
 
 resource "aws_security_group" "strapi_sg" {
-  name = "StrapiInstance-${random_id.this.hex}"
+  name = "StrapiInstance"
   description = "Security group for Strapi EC2 instance"
 
   ingress {
@@ -41,9 +41,25 @@ resource "aws_security_group" "strapi_sg" {
 
 
 }
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["amazon"] # Canonical
+}
+
 
 resource "aws_instance" "strapi" {
-  ami           = "ami-04b70fa74e45c3917"  # Correct AMI ID for ap-south-1
+  ami           = data.aws_ami.ubuntu.id  # Correct AMI ID for ap-south-1
   instance_type = "t2.medium"              # Changed to t2.medium
   key_name      = "devops"                  # Your key pair name
   vpc_security_group_ids = [aws_security_group.strapi_sg.id]
