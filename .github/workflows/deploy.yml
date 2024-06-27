@@ -35,9 +35,15 @@ jobs:
           username: ${{ secrets.HARIPRIYA_EC2_USER }}
           key: ${{ secrets.HARIPRIYA_EC2_KEY }}
           script: |
-            set -e
-            yes | npx create-strapi-app@latest priya-strapi-project --quickstart --skip-cloud --no-run
-            cd ~/priya-strapi-project
+            #set -e
+            #yes | npx create-strapi-app@latest priya-strapi-project --quickstart --skip-cloud --no-run
+            #cd ~/priya-strapi-project
             # pm2 start npm --name strapi-app -- start
-            pm2 restart all || pm2 start npm --name "strapi-app" -- run start
-            pm2 save
+            #pm2 restart all || pm2 start npm --name "strapi-app" -- run start
+            #pm2 save
+
+            cd /srv/strapi
+            sudo git pull origin main
+            sudo npm install
+            pm2 restart strapi-app|| pm2 start npm --name "strapi-app" -- run start
+            
