@@ -45,5 +45,6 @@ jobs:
             cd /srv/strapi
             sudo git pull origin main
             sudo npm install
+            sudo npm run build
             pm2 restart strapi-app|| pm2 start npm --name "strapi-app" -- run start
             
