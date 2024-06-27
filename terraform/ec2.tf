@@ -80,7 +80,9 @@ resource "aws_instance" "strapi" {
       "cd /srv/strapi",
       "sudo git clone https://github.com/haripriya2413/strapi-project",
       "sudo chmod u+x /srv/strapi/generate_env_variables.sh*",
+      "cd /srv/strapi",
       "sudo ./generate_env_variables.sh",
+
     
     ]
 
