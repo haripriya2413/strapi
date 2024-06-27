@@ -42,7 +42,7 @@ jobs:
             sudo ./generate_env_variables.sh
             sudo npm install
             sudo npm run build
-            pm2 start npm --name "strapi-project" -- run start || pm2 restart strapi-project 
+            sudo pm2 start npm --name "strapi-project" -- run start || sudo pm2 restart strapi-project 
 
           
 
