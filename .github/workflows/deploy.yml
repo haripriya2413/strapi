@@ -21,13 +21,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.HARIPRIYA_AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1  # Replace with your AWS region
 
-      - name: Prepare SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.HARIPRIYA_EC2_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.HARIPRIYA_EC2_HOST }} >> ~/.ssh/known_hosts
-
+      - name: Install SSH client
+        run: sudo apt-get install openssh-client
       - name: Deploy Strapi Application
         uses: appleboy/ssh-action@master
         with:
