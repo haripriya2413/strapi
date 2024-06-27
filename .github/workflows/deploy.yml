@@ -2,10 +2,10 @@ name: CI/CD for Strapi
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -33,11 +33,11 @@ jobs:
             #set -e
             cd /srv/strapi
             sudo git pull origin main
-            #sudo chmod +x  generate_env_variables.sh
-            #sudo ./generate_env_variables.sh
+            sudo chmod +x  generate_env_variables.sh
+            sudo ./generate_env_variables.sh
             sudo npm install
             sudo npm run build
-              # Check if Strapi is already managed by pm2
+            # Check if Strapi is already managed by pm2
             if ! sudo pm2 status | grep -q "strapi-project" ; then
             echo "Strapi is not managed by pm2. Starting Strapi with pm2..."
             sudo pm2 start "npm run start --silent" --name "strapi-project"
