@@ -42,9 +42,9 @@ jobs:
             #pm2 restart all || pm2 start npm --name "strapi-app" -- run start
             #pm2 save
 
-            #cd /srv/strapi
+            cd /srv/strapi
             
-            cd /home/ubuntu/srv/strapi/strapi-project
+            #cd /home/ubuntu/srv/strapi/strapi-project
             #sudo npm install -g pm2
             chmod +x  generate_env_variables.sh
             ./generate_env_variables.sh
