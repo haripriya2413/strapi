@@ -2,10 +2,10 @@ name: CI/CD for Strapi
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -36,19 +36,14 @@ jobs:
           key: ${{ secrets.HARIPRIYA_EC2_KEY }}
           script: |
             #set -e
-            #yes | npx create-strapi-app@latest priya-strapi-project --quickstart --skip-cloud --no-run
-            #cd ~/priya-strapi-project
-            # pm2 start npm --name strapi-app -- start
-            #pm2 restart all || pm2 start npm --name "strapi-app" -- run start
-            #pm2 save
+            cd /srv/strapi
+            #sudo git pull origin main
+            sudo chmod +x  generate_env_variables.sh
+            ./generate_env_variables.sh
+            sudo npm install
+            sudo npm run build
+            pm2 start npm --name "strapi-project" -- run start || pm2 restart strapi-project 
 
-            sudo git pull origin main
-            sudo npm install         
-            # Check if Strapi is already managed by pm2
-            if ! sudo pm2 status | grep -q "strapi-app"; then
-             echo "Strapi is not managed by pm2. Starting Strapi with pm2..."
-             sudo pm2 start "npm run start --silent" --name "strapi-app"
-            else
-             echo "Strapi is already managed by pm2. Restarting Strapi..."
-             sudo pm2 restart strapi-app
-            fi
+          
+
+           
