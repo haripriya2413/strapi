@@ -22,7 +22,6 @@ jobs:
           echo "${{ secrets.HARIPRIYA_EC2_KEY }}" > /home/runner/.ssh/devops.pem
           chmod 600 /home/runner/.ssh/devops.pem
           ls -al /home/runner/.ssh  # Verify permissions and existence
-          
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
