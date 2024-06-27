@@ -59,6 +59,10 @@ resource "aws_instance" "strapi" {
       "curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -",
       "sudo apt-get install -y nodejs",
       "sudo npm install -g pm2",
+      "if [ ! -d /srv/strapi ]; then sudo git clone https://github.com/haripriya2413/strapi-project /srv/strapi; else cd /srv/strapi && sudo git pull origin main; fi",
+      "sudo chmod u+x /srv/strapi/generate_env_variables.sh*",
+      "cd /srv/strapi",
+      "sudo ./generate_env_variables.sh",
     
     ]
 
