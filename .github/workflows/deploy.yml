@@ -2,10 +2,10 @@ name: CI/CD for Strapi
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -42,9 +42,12 @@ jobs:
             #pm2 restart all || pm2 start npm --name "strapi-app" -- run start
             #pm2 save
 
-            cd /srv/strapi
-            sudo git pull origin main
-            sudo npm install
-            sudo npm run build
-            pm2 restart strapi-app|| pm2 start npm --name "strapi-app" -- run start
+            #cd /srv/strapi
             
+            cd /home/ubuntu/srv/strapi/strapi-project
+            #sudo npm install -g pm2
+            chmod +x  generate_env_variables.sh
+            ./generate_env_variables.sh
+            npm install
+            npm run build
+            pm2 start npm --name "strapi-project" -- run start || pm2 restart strapi-project 
