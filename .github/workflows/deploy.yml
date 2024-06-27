@@ -37,7 +37,7 @@ jobs:
           script: |
             #set -e
             cd /srv/strapi
-            #sudo git pull origin main
+            sudo git pull origin main
             sudo chmod +x  generate_env_variables.sh
             ./generate_env_variables.sh
             sudo npm install
