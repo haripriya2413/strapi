@@ -45,7 +45,7 @@ jobs:
             echo "Strapi is already managed by pm2. Restarting Strapi..."
             sudo pm2 restart strapi-project 
             fi
-           
+        
           
 
            
