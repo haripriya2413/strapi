@@ -48,6 +48,6 @@ jobs:
             #sudo npm install -g pm2
             #chmod +x  generate_env_variables.sh
             #./generate_env_variables.sh
-            npm install
-            npm run build
+            sudo npm install
+            sudo npm run build
             pm2 start npm --name "strapi-project" -- run start || pm2 restart strapi-project 
