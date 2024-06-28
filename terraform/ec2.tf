@@ -61,7 +61,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "strapi" {
   ami           = data.aws_ami.ubuntu.id  # Correct AMI ID for ap-south-1
   instance_type = var.instance_type             # Changed to t2.medium
-  key_name      = "devops"                  # Your key pair name
+  key_name      = var.key_pair               # Your key pair name
   vpc_security_group_ids = [aws_security_group.strapi_sg.id]
 
   tags = {
