@@ -5,6 +5,6 @@ variable "instance_type" {
   default = "t2.small"
 }
 variable "key_pair" {
-  default = "devops"
+  default = "haripriya"
 }
 
