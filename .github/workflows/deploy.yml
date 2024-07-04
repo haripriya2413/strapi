@@ -28,7 +28,7 @@ jobs:
             #sudo chmod +x  generate_env_variables.sh
             #sudo ./generate_env_variables.sh
             sudo npm install
-            sudo npm run build
+            #sudo npm run build
             # Check if Strapi is already managed by pm2
             if ! sudo pm2 status | grep -q "strapi-project" ; then
             echo "Strapi is not managed by pm2. Starting Strapi with pm2..."
